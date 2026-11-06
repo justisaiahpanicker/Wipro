@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Examination Result Form</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --input-focus: rgba(79, 70, 229, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.75rem;
+            color: var(--text-main);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .card-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.35rem;
+        }
+
+        .section-heading {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            margin: 1.75rem 0 1rem 0;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 0.9rem;
+            font-size: 0.95rem;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s ease;
+            background-color: #f9fafb;
+        }
+
+        .form-group input:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px var(--input-focus);
+        }
+
+        .marks-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .marks-grid .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.85rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-reset {
+            background-color: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .btn-reset:hover {
+            background-color: #e5e7eb;
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+            }
+            .marks-grid {
+                grid-template-columns: 1fr;
+            }
+            .marks-grid .form-group.full-width {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Result Processing</h2>
+            <p>Fill out the details to generate the student report card</p>
+        </div>
+
+        <form action="student" method="POST">
+            
+            <div class="form-group">
+                <label for="regNo">Register Number</label>
+                <input type="text" id="regNo" name="regNo" placeholder="e.g. 21CS101" required>
+            </div>
+
+            <div class="form-group">
+                <label for="studentName">Student Name</label>
+                <input type="text" id="studentName" name="studentName" placeholder="e.g. John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" placeholder="e.g. Computer Science" required>
+            </div>
+
+            <div class="form-group">
+                <label for="attendance">Attendance Percentage (%)</label>
+                <input type="number" id="attendance" name="attendance" step="0.01" min="0" max="100" placeholder="e.g. 85.50" required>
+            </div>
+
+            <div class="section-heading">Subject Marks (Out of 100)</div>
+
+            <div class="marks-grid">
+                <div class="form-group">
+                    <label for="m1">Subject 1</label>
+                    <input type="number" id="m1" name="marks" min="0" max="100" placeholder="0 - 100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="m2">Subject 2</label>
+                    <input type="number" id="m2" name="marks" min="0" max="100" placeholder="0 - 100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="m3">Subject 3</label>
+                    <input type="number" id="m3" name="marks" min="0" max="100" placeholder="0 - 100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="m4">Subject 4</label>
+                    <input type="number" id="m4" name="marks" min="0" max="100" placeholder="0 - 100" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="m5">Subject 5</label>
+                    <input type="number" id="m5" name="marks" min="0" max="100" placeholder="0 - 100" required>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-submit">Calculate Result</button>
+                <button type="reset" class="btn btn-reset">Reset</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
